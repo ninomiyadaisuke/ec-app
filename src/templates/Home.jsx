@@ -11,8 +11,8 @@ const Home = () => {
   return (
     <div>
       <h2>ホーム</h2>
-      <p>{uid}</p>
-      <p>{userName}</p>
+      <p>ユーザー名:{uid}</p>
+      <p>ユーザーID:{userName}</p>
     </div>
     
   )
