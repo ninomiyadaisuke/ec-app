@@ -7,7 +7,7 @@ export const listenAuthState = () => {
     return auth.onAuthStateChanged(user => {
       if (user) {
           const uid = user.uid
-
+          
           db.collection("users").doc(uid).get()
             .then(snapshot => {
               const data = snapshot.data()
@@ -18,9 +18,8 @@ export const listenAuthState = () => {
                 uid: uid,
                 userName: data.userName
               }))
-
-              dispatch(push("/"))
-            })        
+            }) 
+        console.log(user);
       } else {
         dispatch(push("/signin"))
       }
