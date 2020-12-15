@@ -1,4 +1,4 @@
-import { signInAction } from "./actions"
+import { signInAction, signOutAction } from "./actions"
 import { push } from "connected-react-router"
 import { auth, FirebaseTimeStamp, db } from "../../firebase/index"
 
@@ -93,6 +93,16 @@ export const signUp = (userName, email, password, confirmPassword) => {
             })
         }
       
+      })
+  }
+}
+
+export const signOut = () => {
+  return async (dispatch) => {
+    auth.signOut()
+      .then(() => {
+        dispatch(signOutAction())
+        dispatch(push("/signin"))
       })
   }
 }
