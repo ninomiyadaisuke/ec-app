@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { saveProduct } from "../reducks/products/operations"
 import ImageArea from "../components/Products/ImageArea"
 import { db } from '../firebase'
+import  SetSizeArea  from '../components/Products/SetSizeArea'
 
 
 
@@ -19,7 +20,8 @@ const ProductEdit = () => {
           [images, setImages] = useState([]),
           [category, setCategory] = useState(""),
           [gender, setGender] = useState(""),
-          [price, setPrice] = useState("")
+          [price, setPrice] = useState(""),
+          [sizes, setSizes] = useState([])
           
 
   const inputName = useCallback((event) => {
@@ -56,6 +58,7 @@ const ProductEdit = () => {
         setCategory(data.category)
         setGender(data.gender)
         setPrice(data.price)
+        setSizes(data.sizes)
       })
     }
   }, [id])
@@ -85,11 +88,13 @@ const ProductEdit = () => {
           fullWidth={true} label={"価格"} multiline={false} required={true}
           onChange={inputPrice} rows={1} value={price} type={"number"}
         />   
-        <div className="module-spacer--medium" />
+        <div className="module-spacer--small" />
+        <SetSizeArea sizes={sizes} setSizes={setSizes}/>
+        <div className="module-spacer--small" />
         <div className="center">
           <PrimaryButton
             label={"商品登録"} 
-            onClick={() => dispatch(saveProduct(id,name, description, category, gender, price, images))}
+            onClick={() => dispatch(saveProduct(id,name, description, category, gender, price, images, sizes))}
           />
         </div>
       </div>
