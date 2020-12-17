@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { TextInput, SelectBox, PrimaryButton } from '../components/UIkit'
+import { PrimaryButton, SelectBox, TextInput } from "../components/UIkit"
 import { useDispatch } from "react-redux"
 import { saveProduct } from "../reducks/products/operations"
-import ImageArea from "../components/Products/ImageArea"
-import { db } from '../firebase'
-import  SetSizeArea  from '../components/Products/SetSizeArea'
+import { ImageArea, SetSizeArea } from "../components/Products"
+import { db } from '../firebase/index'
 
 
 
 const ProductEdit = () => {
-  const dispatch = useDispatch()
-  let id = window.location.pathname.split("product/edit")[1]
-  if (id !== "") {
-    id = id.split("/")[1]
-  }
+    const dispatch = useDispatch();
+    let id = window.location.pathname.split('/product/edit')[1];
+    if (id !== "") {
+        id = id.split('/')[1]
+    }
 
     const [name, setName] = useState(""),
           [description, setDescription] = useState(""),
