@@ -4,12 +4,16 @@ import Badge from "@material-ui/core/Badge"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder"
 import MenuIcon from "@material-ui/icons/Menu"
+import { getProductsInCart } from "../../reducks/users/selectors"
+import { useSelector } from "react-redux"
 
 const HeaderMenus = (props) => {
+  let selector = useSelector((state) => state)
+  let productsInCart = getProductsInCart(selector)
   return (
     <>
       <IconButton>
-        <Badge badgeContent={3} color="secondary">
+        <Badge badgeContent={productsInCart.length} color="secondary">
           <ShoppingCartIcon/>
         </Badge>
       </IconButton>

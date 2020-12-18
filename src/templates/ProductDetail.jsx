@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { db, FirebaseTimeStamp } from "../firebase"
 import { makeStyles } from "@material-ui/styles"
 import HTMLRactParser from "html-react-parser"
-import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { ImageSwiper, SizeTable } from "../components/Products"
-import {addProductToCart} from "../reducks/users/operations"
+import { addProductToCart } from "../reducks/users/operations"
 
 
 const useStyles = makeStyles((theme) => ({
