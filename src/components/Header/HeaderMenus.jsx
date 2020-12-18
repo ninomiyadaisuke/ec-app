@@ -1,15 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import IconButton from "@material-ui/core/IconButton"
 import Badge from "@material-ui/core/Badge"
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder"
 import MenuIcon from "@material-ui/icons/Menu"
-import { getProductsInCart } from "../../reducks/users/selectors"
-import { useSelector } from "react-redux"
+import { getProductsInCart, getUsersId } from "../../reducks/users/selectors"
+import { useSelector, useDispatch } from "react-redux"
+import { db } from "../../firebase"
+import { push } from "connected-react-router"
 
 const HeaderMenus = (props) => {
   let selector = useSelector((state) => state)
+  const uid = getUsersId(selector)
   let productsInCart = getProductsInCart(selector)
+  
+  useEffect(() => {
+    const unsubscribe = db.collection("users").doc(uid).collection("cart")
+      .onSnapshot(snapshots => {
+        snapshots.docChanges().forEach(change => {
+          const product = change.doc.data()
+          const changeType = change.type
+
+          switch (changeType) {
+            case "added":
+              productsInCart.push(product)
+              break;
+            case "modified":
+              const index = productsInCart.findIndex(product => product.cartId === change.doc.id)
+              productsInCart[index] = product
+              break;
+            case "removed":
+              productsInCart = productsInCart.filter(product => product.cartId !== change.doc.id)
+              break;
+            default:
+              break;
+          }
+        })
+      })
+    return () => unsubscribe()
+  },[])
+
   return (
     <>
       <IconButton>
