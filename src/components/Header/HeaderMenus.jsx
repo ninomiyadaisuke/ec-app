@@ -8,8 +8,10 @@ import { getProductsInCart, getUsersId } from "../../reducks/users/selectors"
 import { useSelector, useDispatch } from "react-redux"
 import { db } from "../../firebase"
 import { push } from "connected-react-router"
+import {fetchProductsInCart} from "../../reducks/users/operations"
 
 const HeaderMenus = (props) => {
+  const dispatch = useDispatch()
   let selector = useSelector((state) => state)
   const uid = getUsersId(selector)
   let productsInCart = getProductsInCart(selector)
@@ -36,6 +38,7 @@ const HeaderMenus = (props) => {
               break;
           }
         })
+        dispatch(fetchProductsInCart(productsInCart))
       })
     return () => unsubscribe()
   },[])
