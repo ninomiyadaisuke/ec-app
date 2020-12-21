@@ -8,7 +8,8 @@ import { getProductsInCart, getUsersId } from "../../reducks/users/selectors"
 import { useSelector, useDispatch } from "react-redux"
 import { db } from "../../firebase"
 import { push } from "connected-react-router"
-import {fetchProductsInCart} from "../../reducks/users/operations"
+import { fetchProductsInCart } from "../../reducks/users/operations"
+
 
 const HeaderMenus = (props) => {
   const dispatch = useDispatch()
@@ -45,7 +46,7 @@ const HeaderMenus = (props) => {
 
   return (
     <>
-      <IconButton>
+      <IconButton onClick={() => dispatch(push("/cart"))}>
         <Badge badgeContent={productsInCart.length} color="secondary">
           <ShoppingCartIcon/>
         </Badge>

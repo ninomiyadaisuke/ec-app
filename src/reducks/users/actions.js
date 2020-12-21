@@ -21,8 +21,6 @@ export const signInAction = (userState) => {
   }
 }
 
-fetchProductsInCartAction
-
 export const SIGN_OUT = "SIGN_OUT"
 
 export const signOutAction = () => {
