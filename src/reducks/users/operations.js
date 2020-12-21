@@ -36,7 +36,6 @@ export const listenAuthState = () => {
                 userName: data.userName
               }))
             }) 
-        console.log(user);
       } else {
         dispatch(push("/signin"))
       }
