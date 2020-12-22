@@ -52,11 +52,11 @@ export const listenAuthState = () => {
           db.collection("users").doc(uid).get()
             .then(snapshot => {
               const data = snapshot.data()
-
               dispatch(signInAction({
                 isSignedIn: true,
                 role: data.role,
                 uid: uid,
+                cart: [],
                 userName: data.userName
               }))
             }) 
@@ -101,7 +101,7 @@ export const signIn = (email, password) => {
           db.collection("users").doc(uid).get()
             .then(snapshot => {
               const data = snapshot.data()
-
+              console.log(data);
               dispatch(signInAction({
                 isSignedIn: true,
                 role: data.role,
@@ -128,8 +128,8 @@ export const signUp = (userName, email, password, confirmPassword) => {
       alert("パスワードが一致してません。もう一度お試しください")
       return false
     }
-
-    return auth.createUserWithEmailAndPassword(email, password)
+    
+    return await auth.createUserWithEmailAndPassword(email, password)
       .then(result => {
         const user = result.user
 
@@ -150,8 +150,8 @@ export const signUp = (userName, email, password, confirmPassword) => {
               dispatch(push("/"))
             })
         }
-      
-      })
+      }
+      )
   }
 }
 
